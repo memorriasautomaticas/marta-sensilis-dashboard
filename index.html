@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensilis Event Dashboard - La Experiencia Inmersiva Disruptiva</title>
+    <!-- Tailwind CSS CDN for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Inter for sans-serif minimalist typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for Sensilis Branding Colors */
+        :root {
+            --color-white: #FFFFFF;
+            --color-black: #000000;
+            --color-dark-grey: #4D4D4D;
+            --color-coral: #FF5D5D;
+            --color-silver: #C0C0C0; /* Placeholder for silver, can be adjusted */
+            --color-light-grey: #f8f8f8; /* A very soft, almost white background */
+            --color-lighter-coral: rgba(255, 93, 93, 0.08);
+            --color-text-light: #666666; /* For subtle secondary text */
+        }
+
+        /* Base Body Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-light-grey);
+            color: var(--color-dark-grey);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Global Heading Styles */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--color-black);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            text-align: center; /* Ensure all headings are centered */
+        }
+
+        /* Sensilis Logo SVG Styling */
+        .sensilis-logo svg {
+            width: 150px;
+            height: auto;
+            fill: var(--color-black);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .sensilis-logo:hover svg {
+            transform: scale(1.08);
+        }
+
+        /* Fixed Navigation Bar */
+        .fixed-nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border-radius: 0 0 25px 25px;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between; /* Distributes items along the line */
+            align-items: center;
+            position: sticky;
+            top: 0;
+            left: 0; /* Ensure it spans full width */
+            width: 100%; /* Ensure it spans full width */
+            z-index: 1000;
+            animation: fadeInDown 0.8s ease-out;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-sizing: border-box; /* Include padding in width */
+        }
+        .fixed-nav .sensilis-logo {
+            position: relative; /* Changed from absolute to relative */
+            flex-shrink: 0; /* Prevent logo from shrinking */
+        }
+        .fixed-nav .nav-links-container {
+            display: flex;
+            flex-grow: 1; /* Allow nav links to take available space */
+            justify-content: center; /* Center the links within their container */
+            gap: 2.5rem;
+        }
+        /* Mobile specific adjustments for nav */
+        @media (max-width: 768px) {
+            .fixed-nav {
+                padding: 0.8rem 1.5rem;
+                justify-content: space-between;
+            }
+            .fixed-nav .sensilis-logo {
+                position: static;
+                margin-right: 0;
+            }
+            .fixed-nav .nav-links-container {
+                display: none; /* Hide desktop nav links on mobile */
+            }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-link {
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--color-dark-grey);
+            padding: 0.8rem 1.4rem;
+            border-radius: 9999px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            background-color: var(--color-lighter-coral);
+            color: var(--color-coral);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 93, 93, 0.1);
+        }
+        .nav-link.active {
+            background-color: var(--color-coral);
+            color: var(--color-white);
+            font-weight: 600;
+            box-shadow: 0 6px 15px rgba(255, 93, 93, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(160deg, var(--color-white) 0%, var(--color-light-grey) 100%);
+            min-height: 550px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at center, rgba(0,0,0,0.02) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.5;
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+            color: var(--color-black);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .hero-subtitle {
+            font-size: 1.6rem;
+            max-width: 700px;
+            color: var(--color-dark-grey);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+        .hero-info-tag {
+            background-color: var(--color-coral);
+            color: var(--color-white);
+            padding: 0.6rem 1.2rem;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            box-shadow: 0 3px 8px rgba(255, 93, 93, 0.3);
+            transition: transform 0.2s ease-out;
+        }
+        .hero-info-tag:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Content Sections Styling */
+        .content-section {
+            background-color: var(--color-white);
+            border-radius: 25px;
+            padding: 4rem;
+            margin: 3rem auto;
+            max-width: 1300px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateY(40px);
+            opacity: 0;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        .content-section.in-view {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--color-black);
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--color-coral);
+            border-radius: 2px;
+        }
+
+        /* Animated Text Blocks */
+        .animated-text-block {
+            background-color: var(--color-light-grey);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.03);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        .animated-text-block:hover {
+            transform: translateY(-5px);
+            box-shadow: inset 0 4px 12px rgba(0,0,0,0.05), 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .animated-text-block h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-black);
+        }
+        .animated-text-block p {
+            line-height: 1.7;
+            color: var(--color-text-light);
+            text-align: center;
+        }
+        /* Keyword animation */
+        .keyword-highlight {
+            position: relative;
+            display: inline-block;
+            color: var(--color-coral);
+            font-weight: 600;
+            cursor: help;
+            transition: all 0.3s ease-in-out;
+        }
+        .keyword-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-coral);
+            transform: scaleX(0);
+            transition: transform 0.3s ease-in-out;
+            transform-origin: bottom right;
+        }
+        .keyword-highlight:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .keyword-highlight:hover {
+            text-shadow: 0 0 5px rgba(255, 93, 93, 0.5);
+        }
+
+
+        /* Venue Cards - Enhanced */
+        .venue-card-enhanced {
+            background-color: var(--color-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .venue-card-enhanced:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        .venue-card-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: var(--color-coral);
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .venue-card-enhanced:hover::before {
+            transform: translateX(0);
+        }
+        .venue-card-enhanced .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .venue-card-enhanced:hover .card-image {
+            transform: scale(1.03);
+        }
+        .venue-card-enhanced .card-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-black);
+        }
+        .venue-card-enhanced .card-subtitle {
+            font-size: 1rem;
+            color: var(--color-text-light);
+            margin-bottom: 1.5rem;
+        }
+        .venue-card-enhanced .card-description {
+            line-height: 1.6;
+            color: var(--color-dark-grey);
+            font-weight: 300;
+            flex-grow: 1;
+        }
+        .venue-card-enhanced .explore-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--color-coral);
+            color: var(--color-white);
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 3px 8px rgba(255, 93, 93, 0.3);
+        }
+        .venue-card-enhanced .explore-button:hover {
+            background-color: #e04a4a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(255, 93, 93, 0.5);
+        }
+
+        /* Venue Category Colors for Cards */
+        .venue-card-enhanced.yate::before { background-color: #00bcd4; }
+        .venue-card-enhanced.palacete::before { background-color: #e91e63; }
+        .venue-card-enhanced.industrial::before { background-color: #4caf50; }
+
+        /* Full-Screen Modal for Venue Details */
+        .venue-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+        }
+        .venue-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .venue-modal-content {
+            background-color: var(--color-white);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 900px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        .venue-modal.active .venue-modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .venue-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--color-dark-grey);
+            transition: color 0.2s ease-in-out;
+        }
+        .venue-modal-close:hover {
+            color: var(--color-coral);
+            transform: rotate(90deg);
+        }
+        .modal-detail-item {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .modal-detail-item strong {
+            color: var(--color-black);
+            font-weight: 600;
+        }
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Sensory Section - Redesigned */
+        .sensory-grid-new {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+            margin-top: 2rem;
+        }
+        .sensory-card-new {
+            background-color: var(--color-white);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 250px;
+        }
+        .sensory-card-new:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        .sensory-card-new img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .sensory-card-new:hover img {
+            transform: scale(1.1);
+        }
+        .sensory-card-new h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-black);
+        }
+        .sensory-card-new .sensory-description {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+            opacity: 0;
+            color: var(--color-text-light);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .sensory-card-new .sensory-description.active {
+            max-height: 150px;
+            opacity: 1;
+            padding-top: 0.5rem;
+        }
+        .sensory-card-new .read-more-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.4rem 0.8rem;
+            background-color: var(--color-coral);
+            color: var(--color-white);
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+        }
+        .sensory-card-new .read-more-button:hover {
+            background-color: #e04a4a;
+            transform: translateY(-2px);
+        }
+
+
+        /* Glow Effect Demo - Enhanced */
+        .glow-effect-demo-enhanced {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(90deg, var(--color-white), var(--color-silver), var(--color-coral), var(--color-silver), var(--color-white));
+            background-size: 400% 100%;
+            animation: gradientGlow 10s ease infinite alternate;
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-black);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-top: 3rem;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+            position: relative;
+            overflow: hidden;
+        }
+        .glow-effect-demo-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: subtlePulse 3s infinite alternate;
+        }
+        /* Removed .glow-effect-demo-enhanced img styles */
+        @keyframes gradientGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        @keyframes subtlePulse {
+            from { transform: scale(1); opacity: 0.3; }
+            to { transform: scale(1.05); opacity: 0.5; }
+        }
+
+        /* Cronograma - New Design */
+        .cronograma-new-design {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .cronograma-phases-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+        }
+        .cronograma-phase-button {
+            background-color: var(--color-light-grey);
+            border-radius: 15px;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            text-align: center;
+            min-width: 180px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .cronograma-phase-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .cronograma-phase-button.active {
+            background-color: var(--color-coral);
+            color: var(--color-white);
+            box-shadow: 0 6px 15px rgba(255, 93, 93, 0.4);
+            transform: translateY(-3px);
+        }
+        .cronograma-phase-button.active h3 {
+            color: var(--color-white);
+        }
+        .cronograma-phase-button .phase-icon-text {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+            transition: color 0.3s ease-in-out;
+        }
+        .cronograma-phase-button.active .phase-icon-text {
+            color: var(--color-white);
+        }
+        .cronograma-phase-button h3 {
+            font-size: 1.5rem;
+            color: var(--color-black);
+            transition: color 0.3s ease-in-out;
+        }
+
+        .cronograma-content-display {
+            background-color: var(--color-white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 900px;
+            min-height: 400px; /* Ensure enough height for content */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden; /* For potential internal animations */
+        }
+        .cronograma-content-display .content-block {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            position: absolute; /* Position content blocks absolutely */
+            width: calc(100% - 6rem); /* Adjust for padding */
+            height: calc(100% - 6rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            top: 3rem; /* Match padding */
+            left: 3rem;
+        }
+        .cronograma-content-display .content-block.active {
+            opacity: 1;
+            transform: translateY(0);
+            position: static; /* Make active block take up space */
+        }
+        .cronograma-content-display .content-block:not(.active) {
+            pointer-events: none; /* Disable interaction when not active */
+        }
+
+        /* Checklist - More Visual */
+        .checklist-item-visual {
+            background-color: var(--color-white);
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        .checklist-item-visual:hover {
+            transform: translateX(8px);
+            background-color: var(--color-lighter-coral);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .checklist-item-visual.completed {
+            background-color: #e0ffe0;
+            text-decoration: line-through;
+            color: var(--color-silver);
+            opacity: 0.7;
+            border-color: #c0f0c0;
+            transform: translateX(0);
+        }
+        .checklist-item-visual.completed:hover {
+            background-color: #e0ffe0;
+            transform: translateX(0);
+        }
+        .checklist-item-visual input[type="checkbox"] {
+            margin-right: 1.2rem;
+            min-width: 24px;
+            min-height: 24px;
+            accent-color: var(--color-coral);
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .checklist-item-visual label {
+            flex-grow: 1;
+            font-size: 1rem;
+            color: var(--color-black);
+            font-weight: 500;
+            text-align: left; /* Ensure label text is left-aligned */
+        }
+        .checklist-item-visual.completed label {
+            color: var(--color-silver);
+        }
+
+        /* Confetti animation for checklist */
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100px) rotate(720deg); opacity: 0; }
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--color-coral);
+            border-radius: 50%;
+            animation: confetti-fall 1s forwards;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+
+        /* Plan B Cards - More Engaging */
+        .plan-b-card-enhanced {
+            background-color: var(--color-white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            border-left: 8px solid var(--color-coral);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .plan-b-card-enhanced:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            border-left-color: #e04a4a;
+        }
+        .plan-b-card-enhanced h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--color-black);
+        }
+        .plan-b-card-enhanced p, .plan-b-card-enhanced ul {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--color-text-light);
+        }
+        /* Plan B - Beach metaphor */
+        .plan-b-metaphor {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(to bottom, #87ceeb, #add8e6);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .plan-b-metaphor .sun {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #ffeb3b;
+            transition: all 1s ease-in-out;
+        }
+        .plan-b-metaphor .clouds {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            animation: moveClouds 15s linear infinite;
+        }
+        .plan-b-metaphor .clouds:nth-child(1) { top: 30px; left: -50px; animation-delay: 0s; }
+        .plan-b-metaphor .clouds:nth-child(2) { top: 60px; left: 150px; animation-delay: -5s; transform: scale(0.8); }
+        .plan-b-metaphor .clouds:nth-child(3) { top: 40px; left: 300px; animation-delay: -10s; transform: scale(1.2); }
+        @keyframes moveClouds {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(200%); }
+        }
+        .plan-b-metaphor .beach {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #fce8ad;
+            border-radius: 0 0 20px 20px;
+        }
+        .plan-b-metaphor .rain-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .plan-b-metaphor.rainy .rain-overlay {
+            opacity: 1;
+        }
+        .plan-b-metaphor .rain-drop {
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background-color: rgba(255,255,255,0.7);
+            animation: rain 0.5s linear infinite;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .plan-b-metaphor.rainy .rain-drop {
+            opacity: 1;
+        }
+        @keyframes rain {
+            from { transform: translateY(-10px); opacity: 1; }
+            to { transform: translateY(100px); opacity: 0; }
+        }
+        .plan-b-toggle-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-coral);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 9999px;
+            cursor: pointer;
+            z-index: 10;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(255, 93, 93, 0.4);
+            transition: all 0.3s ease-in-out;
+        }
+        .plan-b-toggle-button:hover {
+            background-color: #e04a4a;
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 93, 93, 0.6);
+        }
+
+
+        /* Experiencia Visual - New Section */
+        .visual-experience-card {
+            background-color: var(--color-white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 320px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .visual-experience-card:hover {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .visual-experience-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--color-black);
+        }
+        .visual-experience-card p {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+        .visual-experience-card img {
+            max-width: 80%;
+            max-height: 180px;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.4s ease-in-out;
+        }
+        .visual-experience-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .fixed-nav {
+                padding: 1rem 2rem;
+            }
+            .fixed-nav .sensilis-logo {
+                left: 2rem;
+            }
+            .fixed-nav .nav-links-container {
+                gap: 1.5rem;
+            }
+            .nav-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            .content-section {
+                padding: 3rem;
+                margin: 2rem auto;
+            }
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 2.5rem;
+            }
+            .venue-card-enhanced .card-title {
+                font-size: 1.6rem;
+            }
+            .venue-modal-content {
+                padding: 2rem;
+            }
+            .sensory-grid-new {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1.5rem;
+            }
+            .sensory-card-new {
+                min-height: 220px;
+                padding: 1rem;
+            }
+            .sensory-card-new img {
+                width: 100px;
+                height: 100px;
+            }
+            .sensory-card-new h3 {
+                font-size: 1.3rem;
+            }
+            .glow-effect-demo-enhanced {
+                height: 200px;
+                font-size: 1.6rem;
+            }
+            .cronograma-new-design {
+                padding: 1rem;
+            }
+            .cronograma-phases-nav {
+                gap: 1rem;
+            }
+            .cronograma-phase-button {
+                min-width: 150px;
+                padding: 1rem 1.5rem;
+            }
+            .cronograma-phase-button .phase-icon-text {
+                font-size: 2.5rem;
+            }
+            .cronograma-phase-button h3 {
+                font-size: 1.3rem;
+            }
+            .cronograma-content-display {
+                padding: 2rem;
+            }
+            .checklist-item-visual {
+                padding: 1rem 1.2rem;
+            }
+            .plan-b-card-enhanced {
+                padding: 2rem;
+            }
+            .visual-experience-card {
+                min-height: 280px;
+                padding: 2rem;
+            }
+            .visual-experience-card img {
+                max-height: 120px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .fixed-nav {
+                padding: 0.8rem 1.5rem;
+                justify-content: space-between;
+            }
+            .fixed-nav .sensilis-logo {
+                position: static;
+                left: auto;
+            }
+            .fixed-nav .nav-links-container {
+                display: none;
+            }
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .hero-info-tag {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            .content-section {
+                padding: 2rem;
+                margin: 1.5rem auto;
+                border-radius: 15px;
+            }
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+            .section-title::after {
+                bottom: -10px;
+            }
+            .animated-text-block {
+                padding: 1.5rem;
+            }
+            .animated-text-block h3 {
+                font-size: 1.3rem;
+            }
+            .venue-card-enhanced {
+                padding: 1.5rem;
+                border-radius: 15px;
+            }
+            .venue-card-enhanced .card-title {
+                font-size: 1.4rem;
+            }
+            .venue-modal-content {
+                padding: 1.5rem;
+                width: 95%;
+            }
+            .venue-modal-close {
+                top: 10px;
+                right: 10px;
+                font-size: 1.8rem;
+            }
+            .sensory-grid-new {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .sensory-card-new {
+                min-height: auto;
+            }
+            .sensory-card-new img {
+                width: 80px;
+                height: 80px;
+            }
+            .sensory-card-new h3 {
+                font-size: 1.2rem;
+            }
+            .glow-effect-demo-enhanced {
+                height: 150px;
+                font-size: 1.2rem;
+            }
+            .cronograma-new-design {
+                padding: 1rem;
+            }
+            .cronograma-phases-nav {
+                flex-direction: column; /* Stack buttons vertically on mobile */
+                gap: 0.8rem;
+            }
+            .cronograma-phase-button {
+                min-width: unset;
+                width: 100%;
+                padding: 0.8rem 1rem;
+            }
+            .cronograma-phase-button .phase-icon-text {
+                font-size: 2rem;
+            }
+            .cronograma-phase-button h3 {
+                font-size: 1.1rem;
+            }
+            .cronograma-content-display {
+                padding: 1.5rem;
+                min-height: 350px;
+            }
+            .cronograma-content-display .content-block {
+                width: calc(100% - 3rem);
+                height: calc(100% - 3rem);
+                top: 1.5rem;
+                left: 1.5rem;
+            }
+            .checklist-item-visual {
+                padding: 0.8rem 1rem;
+            }
+            .checklist-item-visual input[type="checkbox"] {
+                min-width: 20px;
+                min-height: 20px;
+            }
+            .checklist-item-visual label {
+                font-size: 0.9rem;
+            }
+            .plan-b-card-enhanced {
+                padding: 1.5rem;
+                border-left-width: 5px;
+            }
+            .plan-b-card-enhanced h3 {
+                font-size: 1.4rem;
+            }
+            .visual-experience-card {
+                min-height: 250px;
+                padding: 1.5rem;
+            }
+            .visual-experience-card img {
+                max-height: 100px;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <!-- Fixed Navigation Bar -->
+    <nav class="fixed-nav">
+        <div class="sensilis-logo">
+            <a href="#hero" aria-label="Volver al inicio del dashboard">
+                <svg viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="15" font-family="Inter, sans-serif" font-size="16" fill="var(--color-black)" text-transform="lowercase" letter-spacing="0.5">sensilis</text>
+                </svg>
+            </a>
+        </div>
+        <div class="nav-links-container hidden md:flex">
+            <a href="#resumen" class="nav-link" data-section="resumen">Resumen</a>
+            <a href="#espacios" class="nav-link" data-section="espacios">Espacios</a>
+            <a href="#sensorial" class="nav-link" data-section="sensorial">Sensorial</a>
+            <a href="#cronograma" class="nav-link" data-section="cronograma">Cronograma</a>
+            <a href="#planb" class="nav-link" data-section="planb">Plan B</a>
+            <a href="#experiencia-visual" class="nav-link" data-section="experiencia-visual">Visual</a>
+        </div>
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-toggle" class="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-coral">
+            <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-nav-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-[999] hidden flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-11/12 max-w-sm relative">
+            <button id="close-mobile-menu" class="absolute top-4 right-4 text-dark-grey text-2xl">&times;</button>
+            <nav class="flex flex-col space-y-4">
+                <a href="#resumen" class="nav-link text-center" data-section="resumen">Resumen Ejecutivo</a>
+                <a href="#espacios" class="nav-link text-center" data-section="espacios">Propuestas de Espacios</a>
+                <a href="#sensorial" class="nav-link text-center" data-section="sensorial">Experiencias Sensoriales</a>
+                <a href="#cronograma" class="nav-link text-center" data-section="cronograma">Cronograma y Operación</a>
+                <a href="#planb" class="nav-link text-center" data-section="planb">Plan de Contingencia (Plan B)</a>
+                <a href="#experiencia-visual" class="nav-link text-center" data-section="experiencia-visual">Experiencia Visual</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Sensilis: La Experiencia Inmersiva en París 2026
+            </h1>
+            <p class="hero-subtitle">
+                Un viaje sensorial exclusivo donde la ciencia y la belleza consciente se fusionan para cautivar.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <span class="hero-info-tag">
+                    29, 30 o 31 ENERO 2026
+                </span>
+                <span class="hero-info-tag bg-black">
+                    150 INVITADOS
+                </span>
+                <span class="hero-info-tag bg-dark-grey">
+                    PARÍS
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-4 md:p-8">
+        <!-- Resumen Ejecutivo Section -->
+        <section id="resumen" class="content-section">
+            <h2 class="section-title">Resumen Ejecutivo: Nuestra Visión</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="animated-text-block">
+                    <h3>Un Evento Único en Formato "Maison"</h3>
+                    <p class="mb-4">Imagina una <span class="keyword-highlight">"Maison" de Sensilis</span> en el corazón de París, un espacio que respira arte y ciencia, diseñado para la presentación de nuestra <span class="keyword-highlight">nueva línea de productos</span>. No es solo un evento, es una inmersión total donde cada detalle está pensado para <span class="keyword-highlight">sorprender y conectar</span> con nuestros clientes de IMCAS París.</p>
+                    <p class="mb-0">Nuestra prioridad es la <span class="keyword-highlight">originalidad</span> y la <span class="keyword-highlight">singularidad</span>, asegurando una experiencia que se grabe en la memoria de cada asistente. Queremos que sientan la <span class="keyword-highlight">"Belleza Consciente"</span> en cada fibra.</p>
+                </div>
+                <div class="animated-text-block">
+                    <h3>Fechas Clave y Estilo Inconfundible</h3>
+                    <p class="mb-4">Nos encontraremos el <span class="keyword-highlight">29, 30 o 31 de enero de 2026</span> con <span class="keyword-highlight">150 invitados</span>. Hemos elegido esta fecha estratégica para aprovechar la energía de París y la presencia de nuestros clientes durante IMCAS.</p>
+                    <p class="mb-0">La estética será un <span class="keyword-highlight">minimalismo sofisticado</span>, dominado por el blanco, negro, gris, plateado y toques de coral. Un ambiente ejecutivo, empático y transparente, donde cada elemento visual y sensorial hablará de <span class="keyword-highlight">"Sensitive Skin Lab"</span> y <span class="keyword-highlight">"No test, no claim"</span>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Propuestas de Espacios Section -->
+        <section id="espacios" class="content-section">
+            <h2 class="section-title">Propuestas de Espacios: El Escenario Perfecto</h2>
+            <p class="mb-10 text-center max-w-3xl mx-auto text-dark-grey font-light text-lg">
+                Hemos curado una selección de joyas ocultas en París, espacios que nos permiten crear la "Maison Sensilis" soñada. Desde la elegancia de un palacete hasta la vanguardia de un taller industrial, cada lugar ofrece un lienzo único para nuestra experiencia inmersiva.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Yate Card -->
+                <div class="venue-card-enhanced yate" tabindex="0" role="button" data-venue-id="liberty-barge">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/targeta%201.jpg?raw=true" alt="Imagen de un yate moderno en el río Sena" class="card-image">
+                    <h3 class="card-title">Yachts de Paris - Liberty Barge</h3>
+                    <p class="card-subtitle">Barcaza / Yate - Port de Javel Haut, 75015 Paris</p>
+                    <p class="card-description">Lujo en Movimiento: Vistas panorámicas de París, techo retráctil para efectos "glow". Una experiencia inmersiva sobre el Sena.</p>
+                    <span class="explore-button">Explorar &rarr;</span>
+                </div>
+
+                <!-- Palacete Card 1 -->
+                <div class="venue-card-enhanced palacete" tabindex="0" role="button" data-venue-id="beaux-arts">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/targeta2.jpg?raw=true" alt="Imagen de la Cour vitrée de Beaux-Arts de Paris" class="card-image">
+                    <h3 class="card-title">Beaux-Arts de Paris</h3>
+                    <p class="card-subtitle">Museo / Patrimonio Oculto - 14, rue Bonaparte, 75006 Paris</p>
+                    <p class="card-description">Elegancia y Arte: Un lienzo excepcional para proyecciones inmersivas en su Cour vitrée, con un toque cultural profundo.</p>
+                    <span class="explore-button">Explorar &rarr;</span>
+                </div>
+
+                <!-- Palacete Card 2 -->
+                <div class="venue-card-enhanced palacete" tabindex="0" role="button" data-venue-id="petit-palais">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/targeta3.jpg?raw=true" alt="Imagen de la fachada del Petit Palais en París" class="card-image">
+                    <h3 class="card-title">Petit Palais</h3>
+                    <p class="card-subtitle">Palacio / Museo - 5 Avenue Dutuit, 75008 Paris</p>
+                    <p class="card-description">Majestuosidad Histórica: Cúpula de cristal y ornamentación para un telón de fondo grandioso, ideal para efectos de luz sofisticados.</p>
+                    <span class="explore-button">Explorar &rarr;</span>
+                </div>
+
+                <!-- Industrial Card 1 -->
+                <div class="venue-card-enhanced industrial" tabindex="0" role="button" data-venue-id="artefact-paris">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/targeta4.jpg?raw=true" alt="Imagen de un taller industrial moderno en París" class="card-image">
+                    <h3 class="card-title">Artefact Paris (Atelier Eiffel)</h3>
+                    <p class="card-subtitle">Taller Artesano / Industrial - 14 Passage Lhomme, 75011 Paris</p>
+                    <p class="card-description">Vanguardia y Creación: Ambiente industrial con cúpula Eiffel, perfecto para fusionar herencia y tecnología inmersiva.</p>
+                    <span class="explore-button">Explorar &rarr;</span>
+                </div>
+
+                <!-- Industrial Card 2 -->
+                <div class="venue-card-enhanced industrial" tabindex="0" role="button" data-venue-id="la-fabrique">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/targeta5.jpg?raw=true" alt="Imagen del interior de La Fabrique Événementielle" class="card-image">
+                    <h3 class="card-title">La Fabrique Événementielle</h3>
+                    <p class="card-subtitle">Industrial - 52 ter Rue des Vinaigriers, 75010 Paris</p>
+                    <p class="card-description">Lienzo Flexible: Antigua fábrica transformada, modular y con sistema de sonido Bose, ideal para una inmersión dinámica.</p>
+                    <span class="explore-button">Explorar &rarr;</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Full-Screen Modal for Venue Details -->
+        <div id="venue-modal" class="venue-modal">
+            <div class="venue-modal-content">
+                <button class="venue-modal-close" aria-label="Cerrar detalles del espacio">&times;</button>
+                <img id="modal-image" src="" alt="Imagen del espacio" class="modal-image">
+                <h3 id="modal-venue-title" class="text-3xl font-bold mb-4 text-black"></h3>
+                <p id="modal-venue-type" class="text-lg text-dark-grey mb-2"></p>
+                <p id="modal-venue-location" class="text-md text-text-light mb-4"></p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <p class="modal-detail-item"><strong class="text-black">Capacidad:</strong> <span id="modal-venue-capacity"></span></p>
+                    <p class="modal-detail-item"><strong class="text-black">Precio Alquiler:</strong> <span id="modal-venue-price"></span></p>
+                    <p class="modal-detail-item"><strong class="text-black">Contacto:</strong> <span id="modal-venue-contact"></span></p>
+                    <p class="modal-detail-item"><strong class="text-black">Web:</strong> <a href="#" target="_blank" class="text-coral hover:underline" id="modal-venue-web-link"></a></p>
+                </div>
+                <p class="modal-detail-item"><strong class="text-black">Experiencia Sensorial Flash:</strong> <span id="modal-venue-sensory"></span></p>
+                <p class="modal-detail-item"><strong class="text-black">Coste Total Evento (Rango):</strong> <span id="modal-venue-total-cost"></span></p>
+            </div>
+        </div>
+
+        <!-- Experiencias Sensoriales Section -->
+        <section id="sensorial" class="content-section">
+            <h2 class="section-title">Experiencias Sensoriales: Un Viaje para los Sentidos</h2>
+            <p class="mb-10 text-center max-w-3xl mx-auto text-dark-grey font-light text-lg">
+                En Sensilis, la <span class="keyword-highlight">belleza es una experiencia completa</span>. Hemos diseñado un viaje multisensorial para evocar <span class="keyword-highlight">pureza, calma y renovación</span>, alineado con los atributos de nuestros productos para piel sensible. ¡Prepárate para sentir la diferencia!
+            </p>
+
+            <h3 class="text-2xl font-semibold mb-8 text-black text-center">Nuestro "Sensitive Skin Lab" en Acción:</h3>
+            <div class="sensory-grid-new">
+                <div class="sensory-card-new" tabindex="0" role="button" aria-expanded="false" data-sensory-id="olfato">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/olfato.jpg?raw=true" alt="Imagen de olfato">
+                    <h3>Olfato</h3>
+                    <p class="sensory-description">Difusión sutil de aromas frescos y limpios (e.g., notas acuáticas, pepino, té blanco, sándalo ligero) en zonas clave, especialmente en la exposición inmersiva y la bienvenida.</p>
+                </div>
+                <div class="sensory-card-new" tabindex="0" role="button" aria-expanded="false" data-sensory-id="vista">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/vista.jpg?raw=true" alt="Imagen de vista">
+                    <h3>Vista</h3>
+                    <p class="sensory-description">Proyecciones de luz "glow" en tonos blanco, plateado y coral, simulando el brillo de una piel sana. Contenido visual abstracto de texturas acuosas, gotas de rocío y movimientos fluidos. Uso de iluminación minimalista y sofisticada.</p>
+                </div>
+                <div class="sensory-card-new" tabindex="0" role="button" aria-expanded="false" data-sensory-id="tacto">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/tacto.jpg?raw=true" alt="Imagen de tacto">
+                    <h3>Tacto</h3>
+                    <p class="sensory-description">Estaciones interactivas con texturas suaves y sedosas (telas, superficies lisas) y la posibilidad de probar texturas de cremas (con toallas individuales y protocolo de higiene).</p>
+                </div>
+                <div class="sensory-card-new" tabindex="0" role="button" aria-expanded="false" data-sensory-id="oido">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/oido.jpg?raw=true" alt="Imagen de oído">
+                    <h3>Oído</h3>
+                    <p class="sensory-description">Música ambiente minimalista, con sonidos relajantes de agua, brisa suave y melodías etéreas que inviten a la calma y la introspección.</p>
+                </div>
+                <div class="sensory-card-new" tabindex="0" role="button" aria-expanded="false" data-sensory-id="gusto">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/gusto.jpg?raw=true" alt="Imagen de gusto">
+                    <h3>Gusto</h3>
+                    <p class="sensory-description">Cóctel y cena con ingredientes frescos, ligeros y de origen natural, con énfasis en la hidratación (frutas, verduras, caldos claros). Bebidas refrescantes y no irritantes.</p>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-semibold mt-16 mb-8 text-black text-center">Catering Premium: Sabor y Bienestar</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="catering-card">
+                    <h4 class="text-lg font-semibold mb-2 text-black">6eSENS Traiteur Evenementiel Paris</h4>
+                    <p class="text-sm mb-2 text-dark-grey"><strong>Especialidad:</strong> Catering de alta gama, creaciones a medida, productos frescos y de temporada, opciones eco-responsables (bio, circuitos cortos, veganas, sin gluten, sin lactosa). Ideal para <strong>coffee breaks, cócteles y comidas de pie</strong> con un toque saludable y consciente.</p>
+                    <p class="text-sm text-text-light">Rango Precios: 150 - 300 €/pax</p>
+                    <p class="text-sm text-text-light">Contacto: +33 1 80 91 61 81</p>
+                </div>
+                <div class="catering-card">
+                    <h4 class="text-lg font-semibold mb-2 text-black">Frédeville Traiteur Paris</h4>
+                    <p class="text-sm mb-2 text-dark-grey"><strong>Especialidad:</strong> Traiteur de lujo, gastronomía francesa, menús personalizados, capacidad para 1500 personas. Perfecto para <strong>cócteles elegantes y estaciones de comida de pie</strong>, con opciones ligeras y nutritivas.</p>
+                    <p class="text-sm text-text-light">Rango Precios: 150 - 300 €/pax</p>
+                    <p class="text-sm text-text-light">Contacto: +33 2 47 50 27 07</p>
+                </div>
+            </div>
+            <p class="text-sm text-text-light mt-6 text-center">El rango de precios para catering premium en París para 150 personas se estima entre 150€ y 300€ por persona, ajustado para reflejar un evento corporativo de alto nivel con variedad de formatos.</p>
+
+            <h3 class="text-2xl font-semibold mt-16 mb-8 text-black text-center">Demo Visual de Iluminación: El "Glow" de Sensilis</h3>
+            <div class="glow-effect-demo-enhanced">
+                <p>¡Siente el brillo de Sensilis!</p>
+            </div>
+            <p class="mt-4 text-sm text-text-light text-center">Esta animación simula el efecto "glow" que crearemos con iluminación y proyecciones, usando nuestra paleta de colores para evocar una piel sana y radiante. Es la luz que queremos que sientan nuestros clientes.</p>
+        </section>
+
+        <!-- Cronograma y Operación Section -->
+        <section id="cronograma" class="content-section">
+            <h2 class="section-title">Cronograma y Operación: El Flujo de la Experiencia</h2>
+            <p class="mb-10 text-center max-w-3xl mx-auto text-dark-grey font-light text-lg">
+                Nuestro evento se despliega en fases clave, cada una diseñada para una ejecución impecable y una experiencia memorable.
+            </p>
+
+            <div class="cronograma-new-design">
+                <div class="cronograma-phases-nav">
+                    <div class="cronograma-phase-button active" data-phase-id="montaje" tabindex="0">
+                        <span class="phase-icon-text">🛠️</span>
+                        <h3>Fase 1: Montaje</h3>
+                    </div>
+                    <div class="cronograma-phase-button" data-phase-id="evento" tabindex="0">
+                        <span class="phase-icon-text">✨</span>
+                        <h3>Fase 2: Evento</h3>
+                    </div>
+                    <div class="cronograma-phase-button" data-phase-id="desmontaje" tabindex="0">
+                        <span class="phase-icon-text">🧹</span>
+                        <h3>Fase 3: Desmontaje</h3>
+                    </div>
+                </div>
+
+                <div class="cronograma-content-display">
+                    <div id="montaje-details" class="content-block active">
+                        <h3 class="text-2xl font-semibold mb-8 text-black text-center">Fase 1: Montaje - Preparando el Escenario</h3>
+                        <p class="mb-6 text-dark-grey text-center">Recomendamos un montaje intensivo de <span class="keyword-highlight">24 a 48 horas</span> previas al evento. Esto es crucial para que cada elemento esté en su lugar y listo para sorprender, especialmente en espacios con horarios restringidos.</p>
+                        <h4 class="text-xl font-semibold mb-6 text-black text-center">Checklist de Necesidades Mínimas:</h4>
+                        <ul class="list-none p-0 max-w-2xl mx-auto">
+                            <li class="checklist-item-visual" tabindex="0" role="checkbox" aria-checked="false">
+                                <input type="checkbox" id="tech-power-check">
+                                <label for="tech-power-check">Tecnología: Acceso a tomas de corriente de alta capacidad (32A, 63A) para proyectores, servidores de medios y equipos de iluminación.</label>
+                            </li>
+                            <li class="checklist-item-visual" tabindex="0" role="checkbox" aria-checked="false">
+                                <input type="checkbox" id="tech-internet-check">
+                                <label for="tech-internet-check">Tecnología: Conexión a internet dedicada con ancho de banda suficiente (80 MB) y SSID WiFi privado para la exposición inmersiva.</label>
+                            </li>
+                            <li class="checklist-item-visual" tabindex="0" role="checkbox" aria-checked="false">
+                                <input type="checkbox" id="catering-zone-check">
+                                <label for="catering-zone-check">Catering: Acceso a una zona de cocina o espacio de preparación adecuado para el catering premium, con refrigeración y áreas de almacenamiento.</label>
+                            </li>
+                            <li class="checklist-item-visual" tabindex="0" role="checkbox" aria-checked="false">
+                                <input type="checkbox" id="permits-check">
+                                <label for="permits-check">Permisos: Obtención anticipada de todos los permisos necesarios para la instalación de estructuras, equipos audiovisuales y activaciones especiales.</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="evento-details" class="content-block">
+                        <h3 class="text-2xl font-semibold mb-8 text-black text-center">Fase 2: Evento - El Gran Día de la Inmersión</h3>
+                        <p class="mb-6 text-dark-grey text-center">El corazón de nuestra experiencia inmersiva, donde cada momento está diseñado para deleitar y sorprender a nuestros invitados.</p>
+                        <h4 class="text-xl font-semibold mb-6 text-black text-center">Un Día en la Maison Sensilis:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="animated-text-block">
+                                <h4>19:00 - 20:30h: Recepción y Exposición Inmersiva</h4>
+                                <p class="mb-2">Los invitados serán recibidos con un protocolo sensorial de bienvenida (aroma fresco, música suave) y accederán a la exposición principal en grupos escalonados. Cada paso será una revelación.</p>
+                                <p class="text-xs text-text-light"><strong>Protocolo de Bienvenida por Sentidos:</strong> Vista, Olfato, Oído, Tacto, Gusto.</p>
+                            </div>
+                            <div class="animated-text-block">
+                                <h4>20:30 - 23:00h: Networking y Descubrimiento Culinario</h4>
+                                <p class="mb-2">Transición fluida a la zona de catering. La temática de piel sensible se integrará en la gastronomía, con iluminación y proyecciones sutiles para un ambiente envolvente de networking y disfrute.</p>
+                                <p class="text-xs text-text-light"><strong>Flujo de Visitantes:</strong> Sistema de franjas horarias para grupos pequeños, optimizando la interacción y la calidad de la experiencia.</p>
+                            </div>
+                        </div>
+                        <p class="text-center text-dark-grey text-lg mt-8">
+                            <span class="keyword-highlight">"Cuidado para personas sensibles: honestidad, rigor y belleza consciente."</span>
+                        </p>
+                    </div>
+
+                    <div id="desmontaje-details" class="content-block">
+                        <h3 class="text-2xl font-semibold mt-16 mb-8 text-black text-center">Fase 3: Desmontaje - Cierre Impecable</h3>
+                        <p class="mb-0 text-dark-grey text-center">Negociaremos un tiempo de desmontaje adecuado, idealmente de <span class="keyword-highlight">12 a 24 horas</span> post-evento. Es vital conocer las condiciones de salida para evitar penalizaciones y asegurar que el espacio quede en perfectas condiciones, reflejando la pulcritud de Sensilis.</p>
+                        <div class="mt-8 text-center">
+                            <p class="text-lg text-coral font-semibold animate-pulse">¡Misión Cumplida, Espacio Impecable!</p>
+                            <img src="https://placehold.co/150x150/C0C0C0/FFFFFF?text=Clean" alt="Icono de limpieza" class="mx-auto mt-4 rounded-full shadow-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plan de Contingencia (Plan B) Section -->
+        <section id="planb" class="content-section">
+            <h2 class="section-title">Plan de Contingencia (Plan B): Siempre un Paso Adelante</h2>
+            <p class="mb-10 text-center max-w-3xl mx-auto text-dark-grey font-light text-lg">
+                La tranquilidad de nuestros invitados es nuestra prioridad. Hemos diseñado un plan de contingencia robusto para mitigar cualquier riesgo inesperado, porque estar preparados es clave.
+            </p>
+
+            <div class="plan-b-metaphor mb-8">
+                <div class="sun"></div>
+                <div class="clouds" style="left: -10%;"></div>
+                <div class="clouds" style="left: 40%;"></div>
+                <div class="clouds" style="left: 80%;"></div>
+                <div class="beach"></div>
+                <div class="rain-overlay"></div>
+                <button class="plan-b-toggle-button" id="toggle-plan-b">¿Y si llueve?</button>
+            </div>
+            <p class="text-center text-dark-grey text-lg mb-8">
+                Imagina que planeamos un día perfecto en la playa, pero de repente, ¡llueve! No hay problema. Nuestro "Plan B" no es una alternativa menor, es una <span class="keyword-highlight">solución elegante y efectiva</span> que garantiza que la experiencia Sensilis sea impecable, pase lo que pase.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="plan-b-card-enhanced">
+                    <h3>Alternativa de Venue Cubierta Cercana</h3>
+                    <p class="mb-4">Tenemos identificados y listos para pre-reservar espacios cubiertos y climatizados de capacidad similar, estratégicamente ubicados cerca del Palais des Congrès. ¡La experiencia Sensilis continuará sin interrupciones!</p>
+                    <p class="text-sm text-text-light"><em>Ejemplo: Salones en hoteles de lujo cercanos como el M Social Hotel Paris Opera o el Shangri-La Paris.</em></p>
+                </div>
+                <div class="plan-b-card-enhanced">
+                    <h3>Soluciones Logísticas Inmediatas</h3>
+                    <ul class="list-disc list-inside text-sm mb-4">
+                        <li><strong>Transfer Privado:</strong> Flota de vehículos para traslados cómodos y seguros.</li>
+                        <li><strong>Late Check-out:</strong> Flexibilidad negociada con hoteles cercanos.</li>
+                        <li><strong>Kit de Emergencia Catering:</strong> "Kit de supervivencia" culinario con opciones rápidas y nutritivas.</li>
+                    </ul>
+                </div>
+                <div class="plan-b-card-enhanced md:col-span-2">
+                    <h3>Comunicación de Crisis: Transparencia y Rapidez</h3>
+                    <p class="mb-0">Hemos preparado un mensaje conciso y claro (email/SMS) para informar a los invitados sobre cualquier cambio. Incluirá la nueva dirección, opciones de transporte y un número de contacto para consultas urgentes. Nuestro tono será siempre empático y tranquilizador, porque la confianza es clave.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experiencia Visual - New Section -->
+        <section id="experiencia-visual" class="content-section">
+            <h2 class="section-title">Experiencia Visual: Sumérgete en Sensilis</h2>
+            <p class="mb-10 text-center max-w-3xl mx-auto text-dark-grey font-light text-lg">
+                Más allá de los sentidos, la estética de Sensilis se manifiesta en cada rincón, transformando el espacio en un universo de pureza, ciencia y belleza consciente.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="visual-experience-card" tabindex="0" data-visual-type="renderizado-sala">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/renderizado%20sala.jpg?raw=true" alt="Renderizado de sala inmersiva">
+                    <h4>Diseño de Sala Inmersiva</h4>
+                    <p>Un espacio donde la tecnología y el arte se unen para una inmersión total. Cada detalle, una invitación a la exploración.</p>
+                </div>
+                <div class="visual-experience-card" tabindex="0" data-visual-type="tunel">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/tunel.jpg?raw=true" alt="Túnel inmersivo">
+                    <h4>Túnel de Sensaciones</h4>
+                    <p>Un pasaje que desafía la percepción, guiando a los invitados a través de un viaje de texturas y luces.</p>
+                </div>
+                <div class="visual-experience-card md:col-span-2" tabindex="0" data-visual-type="piel">
+                    <img src="https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/piel.jpg?raw=true" alt="Imagen de piel con efecto glow">
+                    <h4>La Piel como Lienzo</h4>
+                    <p>Proyecciones y texturas que evocan la vitalidad y luminosidad de una piel sana, el corazón de Sensilis.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button onclick="scrollToTop()" id="scrollToTopBtn" title="Ir arriba">↑</button>
+
+    <!-- Footer Section -->
+    <footer class="bg-black py-8 px-10 text-center text-white text-sm rounded-t-xl mt-auto">
+        <p class="mb-2">Sensilis - Belleza Consciente | Cuidado para personas sensibles: honestidad, rigor y belleza consciente.</p>
+        <p>&copy; 2026 Sensilis. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // JavaScript for Dashboard Interactivity
+
+        // DOM Elements
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+        const closeMobileMenuBtn = document.getElementById('close-mobile-menu');
+        const venueCards = document.querySelectorAll('.venue-card-enhanced');
+        const venueModal = document.getElementById('venue-modal');
+        const venueModalCloseBtn = document.querySelector('.venue-modal-close');
+        const sensoryCards = document.querySelectorAll('.sensory-card-new');
+        const checklistItems = document.querySelectorAll('.checklist-item-visual');
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+        const togglePlanBBtn = document.getElementById('toggle-plan-b');
+        const planBMetaphor = document.querySelector('.plan-b-metaphor');
+        const cronogramaPhaseButtons = document.querySelectorAll('.cronograma-phase-button'); // New for Cronograma
+        const cronogramaContentBlocks = document.querySelectorAll('.cronograma-content-display .content-block'); // New for Cronograma
+        const visualExperienceCards = document.querySelectorAll('.visual-experience-card');
+
+
+        // Data for Venue Modal (detailed info)
+        const venueData = {
+            'liberty-barge': {
+                title: 'Yachts de Paris - Liberty Barge',
+                type: 'Barcaza / Yate',
+                location: 'Port de Javel Haut, 75015 Paris',
+                capacity: '150 (Cóctel) / 84 (Cena)',
+                price: '15.000 - 25.000*',
+                contact: 'Service commercial, +33(1) 44 54 14 70',
+                web: 'https://www.yachtsdeparis.fr/en/liberty-barge',
+                sensory: 'Inmersión sensorial en movimiento: Vistas panorámicas de París, techo retráctil para efectos "glow", sonido ambiente del Sena.',
+                totalCost: '67.500 - 130.000*',
+                image: 'https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/targeta%201.jpg?raw=true'
+            },
+            'beaux-arts': {
+                title: 'Beaux-Arts de Paris',
+                type: 'Museo / Patrimonio Oculto',
+                location: '14, rue Bonaparte, 75006 Paris',
+                capacity: '800 (Total) / N/D (Cena)',
+                price: '15.000 - 30.000*',
+                contact: 'Philippe PUCYLO / Event Manager, +33 1 47 03 54 08, philippe.pucylo@beauxartsparis.fr',
+                web: 'https://beauxartsparis.fr/en/privatization',
+                sensory: 'Inmersión artística: Proyecciones en la Cour vitrée, activación de sentidos a través de talleres de arte, sonidos clásicos/modernos.',
+                totalCost: '72.500 - 145.000*',
+                image: 'https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/targeta2.jpg?raw=true'
+            },
+            'petit-palais': {
+                title: 'Petit Palais',
+                type: 'Palacio / Museo',
+                location: '5 Avenue Dutuit, 75008 Paris',
+                capacity: '600 (Cóctel) / 300 (Cena)',
+                price: '12.000 - 20.000*',
+                contact: 'Pauline Le Bitouzé / Development Officer, Pauline.LeBitouze@paris.fr',
+                web: 'https://www.petitpalais.paris.fr/en/professionnels/privatisation',
+                sensory: 'Inmersión majestuosa: Proyecciones en la Galería Sur, aromas sutiles de jardín, música clásica o contemporánea.',
+                totalCost: '74.500 - 145.000*',
+                image: 'https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/targeta3.jpg?raw=true'
+            },
+            'artefact-paris': {
+                title: 'Artefact Paris (Atelier Eiffel)',
+                type: 'Taller Artesano / Industrial',
+                location: '14 Passage Lhomme, 75011 Paris (Bastille/Ledru-Rollin)',
+                capacity: 'N/D (Espacio total 570m²)',
+                price: '3.000 - 5.000*',
+                contact: 'Louis Le Cacheux / Manager & Founder, +33(0) 769 585 780, contact@artefactparis.com',
+                web: 'https://artefactparis.com/location-evenements',
+                sensory: 'Inmersión visual y táctil: Proyecciones en cúpula Eiffel, texturas de paredes históricas, aromas a materiales nobles.',
+                totalCost: '45.500 - 90.000*',
+                image: 'https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/targeta4.jpg?raw=true'
+            },
+            'la-fabrique': {
+                title: 'La Fabrique Événementielle',
+                type: 'Industrial',
+                location: '52 ter Rue des Vinaigriers, 75010 Paris (República)',
+                capacity: '200 (Cóctel Verrière) / 300 (Total)',
+                price: '11.000*',
+                contact: 'Service commercial, +33 6 59 60 11 95, bonjour@fabriqueparis.fr',
+                web: 'https://fabrique-evenementielle.fr',
+                sensory: 'Inmersión dinámica: Proyecciones en muros blancos industriales, efectos de luz con sistema Bose, activación de aromas sutiles.',
+                totalCost: '58.500 - 106.000*',
+                image: 'https://github.com/memorriasautomaticas/marta-sensilis-dashboard/blob/771e85ff015e7e3ca0367b53738dee7e5cab8e00/targeta5.jpg?raw=true'
+            }
+        };
+
+        // Data for Experiencia Visual Cards
+        const visualExperienceData = {
+            'renderizado-sala': {
+                message: '¡Un espacio que se transforma para cautivar! La tecnología al servicio de la belleza.',
+            },
+            'tunel': {
+                message: 'Adéntrate en un viaje sensorial único. Cada paso, una nueva sensación.',
+            },
+            'piel': {
+                message: 'La ciencia de Sensilis en cada poro. Luminosidad y vitalidad que se sienten.',
+            }
+        };
+
+        // Data for Sensory Cards
+        const sensoryDescriptions = {
+            'olfato': 'Difusión sutil de aromas frescos y limpios (e.g., notas acuáticas, pepino, té blanco, sándalo ligero) en zonas clave, especialmente en la exposición inmersiva y la bienvenida.',
+            'vista': 'Proyecciones de luz "glow" en tonos blanco, plateado y coral, simulando el brillo de una piel sana. Contenido visual abstracto de texturas acuosas, gotas de rocío y movimientos fluidos. Uso de iluminación minimalista y sofisticada.',
+            'tacto': 'Estaciones interactivas con texturas suaves y sedosas (telas, superficies lisas) y la posibilidad de probar texturas de cremas (con toallas individuales y protocolo de higiene).',
+            'oido': 'Música ambiente minimalista, con sonidos relajantes de agua, brisa suave y melodías etéreas que inviten a la calma y la introspección.',
+            'gusto': 'Cóctel y cena con ingredientes frescos, ligeros y de origen natural, con énfasis en la hidratación (frutas, verduras, caldos claros). Bebidas refrescantes y no irritantes.'
+        };
+
+
+        /**
+         * Smoothly scrolls to a target section and updates active navigation link.
+         * @param {string} targetId - The ID of the target section.
+         */
+        function smoothScrollTo(targetId) {
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                const headerOffset = document.querySelector('.fixed-nav').offsetHeight;
+                const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+                const offsetPosition = elementPosition - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                updateActiveNavLink(targetId);
+            }
+        }
+
+        /**
+         * Updates the 'active' class on navigation links based on the current section.
+         * @param {string} activeSectionId - The ID of the currently active section.
+         */
+        function updateActiveNavLink(activeSectionId) {
+            navLinks.forEach(link => {
+                if (link.dataset.section === activeSectionId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            // Also update for mobile links
+            const mobileLinks = mobileNavOverlay.querySelectorAll('.nav-link');
+            mobileLinks.forEach(link => {
+                if (link.dataset.section === activeSectionId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        /**
+         * Handles navigation link clicks.
+         * @param {Event} event - The click event.
+         */
+        function handleNavLinkClick(event) {
+            event.preventDefault();
+            const targetId = event.currentTarget.dataset.section;
+            smoothScrollTo(targetId);
+            // Close mobile menu if open
+            if (!mobileNavOverlay.classList.contains('hidden')) {
+                mobileNavOverlay.classList.add('hidden');
+            }
+        }
+
+        /**
+         * Toggles the mobile navigation overlay visibility.
+         */
+        function toggleMobileMenu() {
+            mobileNavOverlay.classList.toggle('hidden');
+            document.body.style.overflow = mobileNavOverlay.classList.contains('hidden') ? '' : 'hidden'; // Prevent background scroll
+        }
+
+        /**
+         * Displays the full-screen modal with venue details.
+         * @param {string} venueId - The ID of the venue to display.
+         */
+        function showVenueModal(venueId) {
+            const data = venueData[venueId];
+            if (data) {
+                document.getElementById('modal-image').src = data.image;
+                document.getElementById('modal-image').alt = `Imagen de ${data.title}`;
+                document.getElementById('modal-venue-title').textContent = data.title;
+                document.getElementById('modal-venue-type').textContent = data.type;
+                document.getElementById('modal-venue-location').textContent = data.location;
+                document.getElementById('modal-venue-capacity').textContent = data.capacity;
+                document.getElementById('modal-venue-price').textContent = data.price;
+                document.getElementById('modal-venue-contact').textContent = data.contact;
+                const webLink = document.getElementById('modal-venue-web-link');
+                webLink.href = data.web;
+                webLink.textContent = data.web;
+                document.getElementById('modal-venue-sensory').textContent = data.sensory;
+                document.getElementById('modal-venue-total-cost').textContent = data.totalCost;
+
+                venueModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling background
+            }
+        }
+
+        /**
+         * Hides the full-screen modal.
+         */
+        function hideVenueModal() {
+            venueModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        /**
+         * Toggles the display of sensory description within a card.
+         * @param {Event} event - The click event.
+         */
+        function toggleSensoryCardDescription(event) {
+            const card = event.currentTarget;
+            const description = card.querySelector('.sensory-description');
+            const isActive = description.classList.contains('active');
+
+            // Close all other sensory descriptions
+            sensoryCards.forEach(sCard => {
+                const desc = sCard.querySelector('.sensory-description');
+                if (desc !== description) {
+                    desc.classList.remove('active');
+                }
+            });
+
+            // Toggle the clicked one
+            description.classList.toggle('active', !isActive);
+        }
+
+        /**
+         * Toggles the completion status of a checklist item with a fun animation.
+         * @param {Event} event - The click event.
+         */
+        function toggleChecklistItem(event) {
+            const checkbox = event.currentTarget.querySelector('input[type="checkbox"]');
+            const listItem = event.currentTarget;
+
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                listItem.classList.toggle('completed', checkbox.checked);
+                listItem.setAttribute('aria-checked', checkbox.checked);
+
+                if (checkbox.checked) {
+                    // Create confetti effect
+                    for (let i = 0; i < 10; i++) {
+                        const confetti = document.createElement('div');
+                        confetti.classList.add('confetti');
+                        confetti.style.left = `${event.clientX + (Math.random() - 0.5) * 50}px`;
+                        confetti.style.top = `${event.clientY + (Math.random() - 0.5) * 50}px`;
+                        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`; // Random color
+                        document.body.appendChild(confetti);
+
+                        confetti.addEventListener('animationend', () => {
+                            confetti.remove();
+                        });
+                    }
+                }
+            }
+        }
+
+        /**
+         * Toggles the Plan B metaphor (sunny vs rainy).
+         */
+        function togglePlanBMetaphor() {
+            planBMetaphor.classList.toggle('rainy');
+            const isRainy = planBMetaphor.classList.contains('rainy');
+            togglePlanBBtn.textContent = isRainy ? '¡Volver al Sol!' : '¿Y si llueve?';
+
+            // Create rain drops if rainy
+            if (isRainy) {
+                for (let i = 0; i < 50; i++) {
+                    const rainDrop = document.createElement('div');
+                    rainDrop.classList.add('rain-drop');
+                    rainDrop.style.left = `${Math.random() * 100}%`;
+                    rainDrop.style.animationDelay = `${Math.random() * 0.5}s`;
+                    rainDrop.style.animationDuration = `${0.5 + Math.random() * 0.5}s`;
+                    planBMetaphor.appendChild(rainDrop);
+                }
+            } else {
+                planBMetaphor.querySelectorAll('.rain-drop').forEach(drop => drop.remove());
+            }
+        }
+
+        /**
+         * Handles click animations for visual experience mockups.
+         * @param {Event} event - The click event.
+         */
+        function handleVisualExperienceCardClick(event) {
+            const card = event.currentTarget;
+            const type = card.dataset.visualType;
+            let message = '';
+
+            switch(type) {
+                case 'renderizado-sala':
+                    message = '¡Un espacio que se transforma para cautivar! La tecnología al servicio de la belleza.';
+                    break;
+                case 'tunel':
+                    message = 'Adéntrate en un viaje sensorial único. Cada paso, una nueva sensación.';
+                    break;
+                case 'piel':
+                    message = 'La ciencia de Sensilis en cada poro. Luminosidad y vitalidad que se sienten.';
+                    break;
+                default:
+                    message = '¡Un detalle Sensilis que te encantará!';
+            }
+
+            alert(message);
+
+            card.classList.add('animate-bounce-once');
+            setTimeout(() => {
+                card.classList.remove('animate-bounce-once');
+            }, 1000);
+        }
+
+
+        /**
+         * Handles scroll events to apply 'in-view' class for animations and update active nav link.
+         */
+        function handleScroll() {
+            const headerHeight = document.querySelector('.fixed-nav').offsetHeight;
+            let currentActiveSectionId = 'hero';
+
+            const heroSection = document.getElementById('hero');
+            if (heroSection.getBoundingClientRect().top < window.innerHeight / 2 && heroSection.getBoundingClientRect().bottom > window.innerHeight / 2) {
+                currentActiveSectionId = 'hero';
+            }
+
+            contentSections.forEach(section => {
+                const sectionTop = section.offsetTop - headerHeight - 100;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                    section.classList.add('in-view');
+                    currentActiveSectionId = section.id;
+                } else {
+                    section.classList.remove('in-view');
+                }
+            });
+            updateActiveNavLink(currentActiveSectionId);
+
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                scrollToTopBtn.style.display = "block";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        }
+
+        /**
+         * Scrolls the document to the top.
+         */
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        /**
+         * Handles click on Cronograma phase buttons to show relevant content.
+         * @param {string} phaseId - The ID of the phase content to display.
+         */
+        function showCronogramaPhaseContent(phaseId) {
+            // Deactivate all buttons and content blocks
+            cronogramaPhaseButtons.forEach(button => button.classList.remove('active'));
+            cronogramaContentBlocks.forEach(block => block.classList.remove('active'));
+
+            // Activate the clicked button and its corresponding content block
+            document.querySelector(`.cronograma-phase-button[data-phase-id="${phaseId}"]`).classList.add('active');
+            document.getElementById(`${phaseId}-details`).classList.add('active');
+        }
+
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            handleScroll();
+
+            navLinks.forEach(link => link.addEventListener('click', handleNavLinkClick));
+            mobileNavOverlay.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', handleNavLinkClick));
+
+            mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+            closeMobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            mobileNavOverlay.addEventListener('click', (e) => {
+                if (e.target === mobileNavOverlay) {
+                    toggleMobileMenu();
+                }
+            });
+
+            venueCards.forEach(card => {
+                card.addEventListener('click', () => showVenueModal(card.dataset.venueId));
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        showVenueModal(card.dataset.venueId);
+                    }
+                });
+            });
+            venueModalCloseBtn.addEventListener('click', hideVenueModal);
+            venueModal.addEventListener('click', (e) => {
+                if (e.target === venueModal) {
+                    hideVenueModal();
+                }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && venueModal.classList.contains('active')) {
+                    hideVenueModal();
+                }
+            });
+
+            sensoryCards.forEach(card => {
+                card.addEventListener('click', toggleSensoryCardDescription);
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        toggleSensoryCardDescription(e);
+                    }
+                });
+            });
+
+
+            checklistItems.forEach(item => {
+                item.addEventListener('click', toggleChecklistItem);
+                item.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        toggleChecklistItem(e);
+                    }
+                });
+            });
+
+            togglePlanBBtn.addEventListener('click', togglePlanBMetaphor);
+
+            visualExperienceCards.forEach(card => {
+                card.addEventListener('click', handleVisualExperienceCardClick);
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        handleVisualExperienceCardClick(e);
+                    }
+                });
+            });
+
+            // Cronograma phase button event listeners
+            cronogramaPhaseButtons.forEach(button => {
+                button.addEventListener('click', () => showCronogramaPhaseContent(button.dataset.phaseId));
+                button.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        showCronogramaPhaseContent(button.dataset.phaseId);
+                    }
+                });
+            });
+
+            // Initial state for Cronograma: show Montaje details
+            showCronogramaPhaseContent('montaje');
+
+
+            window.addEventListener('scroll', handleScroll);
+
+            const firstContentSection = document.querySelector('.content-section');
+            if (firstContentSection) {
+                firstContentSection.classList.add('in-view');
+            }
+            updateActiveNavLink('resumen');
+        });
+
+        window.onload = () => {
+            handleScroll();
+        };
+    </script>
+</body>
+</html>
